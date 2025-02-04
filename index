@@ -1,118 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Something</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #ff7eb3, #ff758c);
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Proposal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Brittany&display=swap');
 
-    #celebrate-btn {
-      padding: 15px 30px;
-      font-size: 1.5rem;
-      color: white;
-      background-color: #ff006e;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      transition: transform 0.2s;
-    }
+        body {
+            background: url('https://github.com/Shonaaa25/14-feb/blob/main/Designer%20(4).jpeg?raw=true') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+        }
 
-    #celebrate-btn:hover {
-      transform: scale(1.1);
-    }
+        .container {
+            position: relative;
+            background: rgba(255, 0, 0, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            top: -50px;
+            display: inline-block;
+        }
 
-    #message {
-      display: none;
-      font-size: 3rem;
-      color: #fff;
-      text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-      animation: pop-up 1s ease-out;
-    }
+        .question {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            font-family: 'Brittany', cursive;
+        }
 
-    @keyframes pop-up {
-      0% {
-        transform: scale(0);
-        opacity: 0;
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
 
-    .confetti {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: #fff;
-      opacity: 0.9;
-      animation: confetti-fall 3s linear infinite;
-    }
+        .btn {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
-    @keyframes confetti-fall {
-      0% {
-        transform: translateY(0) rotate(0);
-      }
-      100% {
-        transform: translateY(100vh) rotate(360deg);
-      }
-    }
-  </style>
+        .yes {
+            background: red;
+            color: white;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .no {
+            background: grey;
+            color: white;
+            position: relative;
+        }
+    </style>
 </head>
 <body>
-  <button id="celebrate-btn">Press Me!</button>
-  <div id="message">Yes, I'll be your valentine!!!
-  </div>
-  
-  
 
-  <script>
-    const btn = document.getElementById('celebrate-btn');
-    const message = document.getElementById('message');
+    <!-- Hidden SoundCloud Player -->
+    <iframe id="sc-player" style="display: none;"
+        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/226777872&auto_play=true&loop=true">
+    </iframe>
 
-    btn.addEventListener('click', () => {
-      btn.style.display = 'none';
-      message.style.display = 'block';
-      playSound();
-      generateConfetti();
-    });
+    <div class="container">
+        <div class="question">Will You Be My Valentine?</div>
+        <div class="buttons">
+            <button class="btn yes" onclick="showPopup()">YES!</button>
+            <button class="btn no" onclick="moveNoButton()">NO.</button>
+        </div>
+    </div>
 
-    function playSound() {
-      const audio = new Audio('https://www.soundjay.com/button/sounds/button-3.mp3');
-      audio.play();
-    }
+    <!-- SoundCloud API -->
+    <script src="https://w.soundcloud.com/player/api.js"></script>
+    <script>
+        function showPopup() {
+            alert("You should've asked first stink stink❤️");
+        }
 
-    function generateConfetti() {
-      for (let i = 0; i < 150; i++) {
-        const confetti = document.createElement('div');
-        confetti.classList.add('confetti');
-        document.body.appendChild(confetti);
+        function moveNoButton() {
+            let noBtn = document.querySelector('.no');
+            let x = Math.random() * (window.innerWidth - 100);
+            let y = Math.random() * (window.innerHeight - 50);
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        }
 
-        const size = Math.random() * 10 + 5;
-        const left = Math.random() * 100;
-        const animationDuration = Math.random() * 3 + 2;
+        // Control SoundCloud Audio
+        window.onload = function () {
+            let widget = SC.Widget(document.getElementById("sc-player"));
+            widget.setVolume(100);  // Set volume to 100%
+        };
+    </script>
 
-        confetti.style.width = `${size}px`;
-        confetti.style.height = `${size}px`;
-        confetti.style.left = `${left}%`;
-        confetti.style.animationDuration = `${animationDuration}s`;
-
-        setTimeout(() => confetti.remove(), animationDuration * 1000);
-      }
-    }
-  </script>
 </body>
 </html>
