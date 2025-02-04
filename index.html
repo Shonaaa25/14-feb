@@ -10,6 +10,7 @@
         body {
             background: url('https://github.com/Shonaaa25/14-feb/blob/main/Designer%20(4).jpeg?raw=true') no-repeat center center/cover;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -18,11 +19,9 @@
         }
 
         .container {
-            position: relative;
-            background: rgba(255, 0, 0, 0.8);
+            background: rgba(255, 0, 0, 0.5);
             padding: 40px;
             border-radius: 10px;
-            top: -50px;
             display: inline-block;
         }
 
@@ -65,14 +64,21 @@
             color: white;
             position: relative;
         }
+
+        /* Spotify Player Styling */
+        .spotify-container {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px; /* Smaller width */
+            height: 80px; /* Smaller height */
+            overflow: hidden;
+            border-radius: 12px;
+        }
     </style>
 </head>
 <body>
-
-    <!-- Hidden SoundCloud Player -->
-    <iframe id="sc-player" style="display: none;"
-        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/226777872&auto_play=true&loop=true">
-    </iframe>
 
     <div class="container">
         <div class="question">Will You Be My Valentine?</div>
@@ -82,11 +88,14 @@
         </div>
     </div>
 
-    <!-- SoundCloud API -->
-    <script src="https://w.soundcloud.com/player/api.js"></script>
+    <!-- Minimized Spotify Player at the Bottom -->
+    <div class="spotify-container">
+        <iframe src="https://open.spotify.com/embed/track/3ESSGgWzRf1xvP7G5hHMhB?utm_source=generator&theme=0" width="100%" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+    </div>
+
     <script>
         function showPopup() {
-            alert("You should've asked first stink stink❤️");
+            alert("No.You should've asked first stink stink❤️");
         }
 
         function moveNoButton() {
@@ -97,12 +106,6 @@
             noBtn.style.left = `${x}px`;
             noBtn.style.top = `${y}px`;
         }
-
-        // Control SoundCloud Audio
-        window.onload = function () {
-            let widget = SC.Widget(document.getElementById("sc-player"));
-            widget.setVolume(100);  // Set volume to 100%
-        };
     </script>
 
 </body>
