@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Something</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #ff7eb3, #ff758c);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    #celebrate-btn {
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      color: white;
+      background-color: #ff006e;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s;
+    }
+
+    #celebrate-btn:hover {
+      transform: scale(1.1);
+    }
+
+    #message {
+      display: none;
+      font-size: 3rem;
+      color: #fff;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+      animation: pop-up 1s ease-out;
+    }
+
+    @keyframes pop-up {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #fff;
+      opacity: 0.9;
+      animation: confetti-fall 3s linear infinite;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(0) rotate(0);
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <button id="celebrate-btn">Press Me!</button>
+  <div id="message">Yes, I'll be your valentine!!!
+  </div>
+  
+  
+
+  <script>
+    const btn = document.getElementById('celebrate-btn');
+    const message = document.getElementById('message');
+
+    btn.addEventListener('click', () => {
+      btn.style.display = 'none';
+      message.style.display = 'block';
+      playSound();
+      generateConfetti();
+    });
+
+    function playSound() {
+      const audio = new Audio('https://www.soundjay.com/button/sounds/button-3.mp3');
+      audio.play();
+    }
+
+    function generateConfetti() {
+      for (let i = 0; i < 150; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        document.body.appendChild(confetti);
+
+        const size = Math.random() * 10 + 5;
+        const left = Math.random() * 100;
+        const animationDuration = Math.random() * 3 + 2;
+
+        confetti.style.width = `${size}px`;
+        confetti.style.height = `${size}px`;
+        confetti.style.left = `${left}%`;
+        confetti.style.animationDuration = `${animationDuration}s`;
+
+        setTimeout(() => confetti.remove(), animationDuration * 1000);
+      }
+    }
+  </script>
+</body>
+</html>
